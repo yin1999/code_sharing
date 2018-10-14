@@ -1,5 +1,5 @@
 //原题链接http://acm.hdu.edu.cn/showproblem.php?pid=1006
-//谢谢大佬的帮助
+//谢谢大佬的帮助，看代码很耗时间的，谢谢了
 #include<iostream>
 #include<math.h>
 #include <iomanip>
