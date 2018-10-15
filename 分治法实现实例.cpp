@@ -1,7 +1,7 @@
-／＊
+/*
 源代码来自
 https://blog.csdn.net/to_baidu/article/details/50315607
-＊／
+*/
 #include <iostream>  
 #include <ctime>
 #include <cmath>
