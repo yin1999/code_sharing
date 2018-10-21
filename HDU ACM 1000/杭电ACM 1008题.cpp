@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
 
-bool flag(int a,int b)
+bool flag(int a,int b)   //判断是否为上升，上升返回true，下降返回false
 {
     if(a>b)
         return true;
@@ -13,7 +13,7 @@ int main()
     int n;
     while(cin>>n&&n!=0)
     {
-        int sum=0,fl,temp=0;
+        int sum=0,fl,temp=0;  //temp储存上一个楼层，初始状态为0，底层
         for(int i=0;i<n;i++)
         {
             cin >>fl;
