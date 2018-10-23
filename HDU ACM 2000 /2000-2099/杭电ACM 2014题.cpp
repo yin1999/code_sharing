@@ -4,14 +4,17 @@ using namespace std;
 
 int main()
 {
-	int n, a[100] = { 0 };
+	int n;
 	while (cin >> n)
 	{
-		int temp, sum = 0, max = 1000000, min = -1;
+		int temp, sum = 0, max = -1, min = 100000;
 		for (int i = 0; i < n; i++)
 		{
 			cin >> temp;
-			
+			if (max < temp)
+			        max = temp;
+			else if (min > temp)
+				min = temp;
 			sum += temp;
 		}
     
