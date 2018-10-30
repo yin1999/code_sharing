@@ -10,7 +10,7 @@ double solve(double x_temp, double y_temp, double deri_temp)   //计算与x轴�
 	return outcome;
 }
 
-double fabs(double temp)
+double fabs(double temp)    //求实数绝对值，可以选择包含<cmath>来调用库中的同名函数实现这个功能
 {
 	if (temp < 0)
 		return -temp;
