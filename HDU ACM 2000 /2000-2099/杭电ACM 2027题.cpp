@@ -31,4 +31,5 @@ int main()
 		if (n)     //最后一次输入只要换行，不需要留空行
 			cout << endl;
 	}
+	return 0;
 }
