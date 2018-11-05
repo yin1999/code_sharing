@@ -1,4 +1,4 @@
-﻿#include<iostream>
+#include<iostream>
 #include<cstdlib>   //包含rand()函数
 #include<ctime>   //包含time()函数
 using namespace std;
