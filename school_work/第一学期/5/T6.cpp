@@ -1,6 +1,5 @@
-﻿#include<iostream>
-#include<cstdlib>
-#include<ctime>
+[不会的话看这个](https://github.com/yin1999/code_sharing/blob/master/HDU%20ACM%202000%20/2000-2099/%E6%9D%AD%E7%94%B5ACM%202032%E9%A2%98.cpp)
+#include<iostream>
 using namespace std;
 
 int main()
