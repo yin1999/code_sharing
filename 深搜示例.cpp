@@ -66,8 +66,9 @@ void dfs(int x, int y)//x,y:当前位置
 int main()
 {
 	count1 = 0;
-	freopen("in.txt", "r", stdin);//读取.cpp文件同目录下的名为in.txt的文件
-
+	if(!freopen("in.txt", "r", stdin));//读取.cpp文件同目录下的名为in.txt的文件
+		return -1;
+	
 	p.x = 0;
 	p.y = 0;
 	path.push(p);//起点先入栈
