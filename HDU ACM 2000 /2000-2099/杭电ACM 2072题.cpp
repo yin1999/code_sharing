@@ -1,3 +1,4 @@
+//此代码无法AC，只供保存
 //网上看到要考虑的情况有，开头有空格，全为空格，单词中间有多个空格 结尾有空格
 #include<iostream>
 #include<cstring>
