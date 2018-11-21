@@ -69,4 +69,5 @@ int main()
 		if (!flag)    //若没找到，则输出NO
 			cout << "NO" << endl;
 	}
+	return 0;
 }
