@@ -15,7 +15,7 @@ int getint(char *a, int *b)
 		}
 		else if(flag)   //前一位为数字，当前位不是数字的情况
 		{
-			b[count1++] = num;    //将怒骂储存到b数组中
+			b[count1++] = num;    //将num储存到b数组中
 			num = 0;      //初始化位0
 			flag = false;    //赋值为false
 		}
