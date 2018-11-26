@@ -15,6 +15,8 @@ int main()
 	char m[][12] = { "January","February","March","April","May","June","July","August","September","October","November","December" };
 	char out[12];
 	int n;
+	cout << "请输入1-12的整数，输入Ctrl+z" << endl;
+	
 	while (cin >> n)
 	{
 		if (n <= 0 || n > 12)
