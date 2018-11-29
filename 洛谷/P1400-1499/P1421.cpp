@@ -9,4 +9,5 @@ int main()
     cin >> a >> b;
     a = a * 10 + b;
     cout << a / price << endl;
+    return 0;
 }
