@@ -10,6 +10,7 @@ void sort1(int &a, int &b)
         a = t;
     }
 }
+
 int main()
 {
     int a, b, c;
@@ -20,16 +21,16 @@ int main()
     int max1 = a;
     int min1 = c;
     while(max1 != min1)  //辗转相减法求最大公约数
-	{
+    {
 	    if(max1 > min1)
-		{
-			max1 -= min1;
-		}
-		else
-		{
-			min1 -= max1;
-		}
-	}
+	    {
+		    max1 -= min1;
+	    }
+	    else
+	    {
+		    min1 -= max1;
+	    }
+    }
     cout << c / max1 << "/" << a / min1 << endl;
     return 0;
 }
