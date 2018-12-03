@@ -1,5 +1,4 @@
 #include <iostream>
-//杭电ACM1003题
 using namespace std;
 int a[100010];
 bool flag;
