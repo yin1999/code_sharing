@@ -1,4 +1,3 @@
-//此函数用于实现输出计数最多的类别，基于杭电ACM 1004题
 #include<iostream>
 #include<string>
 using namespace std;
