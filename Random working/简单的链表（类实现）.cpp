@@ -46,6 +46,11 @@ void NODE::deletedata(int x)
 void NODE::insertdata(int x)
 {
 	NODE *p = head;
+	if (head->next == NULL)
+	{
+		cout << "尚未创建链表" << endl;
+		return;
+	}
 	while (p ->next)
 	{
 		if (x > (p->next)->data)
@@ -66,14 +71,20 @@ void NODE::insertdata(int x)
 
 void NODE::createnode(int x)
 {
-	data = x;
+	NODE *t = new NODE;
+	if (t == NULL)
+	{
+		cout << "无法创建链表" << endl;
+		return;
+	}
+	t->data = x;
+	head->next = t;
 }
 
 void NODE::clear()
 {
 	NODE *p, *q;
 	p = head->next;
-	head->data = 0;
 	while (p)
 	{
 		q = p->next;
@@ -85,13 +96,14 @@ void NODE::clear()
 
 void NODE::showdata()
 {
-	NODE *p = head;
+	NODE *p = head->next;
 	cout << "链表当前包含值为" << endl;
 	while (p)
 	{
 		cout << p->data << '\t';
 		p = p->next;
 	}
+	cout << endl;
 }
 
 int main()
