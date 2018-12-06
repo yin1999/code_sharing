@@ -38,5 +38,6 @@ int main()
 		else
 			cout << 'N' << endl;
 	}
+	delete[] p;
 	return 0;
 }
