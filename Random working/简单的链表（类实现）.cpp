@@ -2,12 +2,11 @@
 #include <iostream>
 using namespace std;
 
-class NODE
+class NODE   //NODE a
 {
 private:
 	int data;
 	NODE *next = NULL;
-	NODE *head = this;
 public:
 	void deletedata(int);    //删除数据
 	void insertdata(int);    //插入数据
@@ -18,7 +17,7 @@ public:
 
 void NODE::deletedata(int x)
 {
-	NODE *p = head;
+	NODE *p = this;
 	NODE *q, *t;
 	while (p->next)
 	{
@@ -30,13 +29,16 @@ void NODE::deletedata(int x)
 	q = p->next;
 	if (q)
 	{
-		if (q->data == x)
+		bool flag = true;
+		while (q->data == x)
 		{
 			t = q->next;
 			delete q;
 			p->next = t;
+			flag = false;
+			q = t;
 		}
-		else
+		if(flag)
 			cout << "没有找到该数" << endl;
 	}
 	else
@@ -45,13 +47,13 @@ void NODE::deletedata(int x)
 
 void NODE::insertdata(int x)
 {
-	NODE *p = head;
-	if (head->next == NULL)
+	if (this->next == NULL)
 	{
 		cout << "尚未创建链表" << endl;
 		return;
 	}
-	while (p ->next)
+	NODE *p = this;
+	while (p->next)
 	{
 		if (x > (p->next)->data)
 			p = p->next;
@@ -71,20 +73,25 @@ void NODE::insertdata(int x)
 
 void NODE::createnode(int x)
 {
-	NODE *t = new NODE;
-	if (t == NULL)
+	if (this->next)
+		cout << "已经创建了此链表" << endl;
+	else
 	{
-		cout << "无法创建链表" << endl;
-		return;
+		NODE *t = new NODE;
+		if (t == NULL)
+		{
+			cout << "无法创建链表" << endl;
+			return;
+		}
+		t->data = x;
+		this->next = t;
 	}
-	t->data = x;
-	head->next = t;
 }
 
 void NODE::clear()
 {
 	NODE *p, *q;
-	p = head->next;
+	p = this->next;
 	while (p)
 	{
 		q = p->next;
@@ -96,7 +103,7 @@ void NODE::clear()
 
 void NODE::showdata()
 {
-	NODE *p = head->next;
+	NODE *p = this->next;
 	cout << "链表当前包含值为" << endl;
 	while (p)
 	{
