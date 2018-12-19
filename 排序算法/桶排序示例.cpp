@@ -19,7 +19,7 @@ int main()
 		{
 			if (num[j] != 0)
 			{
-				cout << num[j] << " ";
+				cout << j << " ";
 				num[j] -= 1;
 				k++;
 			}
