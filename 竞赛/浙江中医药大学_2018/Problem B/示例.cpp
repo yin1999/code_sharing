@@ -19,7 +19,7 @@ int main()
 			cout << "You are loser";
 		else
 		{
-			if (n > m)
+			if (n > m)    //特殊情况（其实n == m也是，把它放到else中了）
 			{
 				cout << m;
 				for (int i = m + 1; i <= n; i++)
