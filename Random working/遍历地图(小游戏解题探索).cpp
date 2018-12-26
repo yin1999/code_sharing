@@ -14,7 +14,6 @@ int out[200][200];
 int vis[20][20] = { 0 };
 int dir[4][2] = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
 int T = 0, n, m, start_x, start_y, count1 = 0;
-bool flag = false;
 stack <point> path;
 
 void output()
@@ -55,12 +54,11 @@ void dfs(int x, int y)
 			if (T == count1)
 			{
 				output();
-				flag = true;
-				return;
+				cout << "按任意键终止程序。" << endl;
+				system("pause");
+				exit(0);
 			}
 			dfs(p.x, p.y);
-			if (flag == true)
-				return;
 			path.pop();
 			vis[p.x][p.y] = 0;
 		}
@@ -88,6 +86,7 @@ int main()
 	}
 	vis[start_x][start_y] = 1;
 	dfs(start_x, start_y);
+	cout << "你输入的数据有误，无解。" << endl;
 	system("pause");
 	return 0;
 }
