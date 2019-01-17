@@ -27,5 +27,6 @@ int main()
 		} 
 	}
 	cout << ans << endl;
+	delete[] num;
 	return 0;
 }
