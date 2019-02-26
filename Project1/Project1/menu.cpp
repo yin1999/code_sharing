@@ -4,8 +4,8 @@ void Main_menu()
 {
 	user user_msg;
 	bool flag = false;
-	cout << "1.µÇÂ½ÕË»§(Ä¬ÈÏÑ¡Ïî)\n";
-	cout << "2.×¢²áÕË»§(ÆÕÍ¨ÕË»§)\n";
+	cout << "1.ç™»é™†è´¦æˆ·(é»˜è®¤é€‰é¡¹)\n";
+	cout << "2.æ³¨å†Œè´¦æˆ·(æ™®é€šè´¦æˆ·)\n";
 	int temp;
 	cin >> temp;
 	if (temp == 2)
@@ -21,7 +21,7 @@ void Main_menu()
 				else
 				{
 					flag = true;
-					cout << "ÓÃ»§ÃûÖØ¸´£¬ÇëÖØÐÂÑ¡Ôñ\n";
+					cout << "ç”¨æˆ·åé‡å¤ï¼Œè¯·é‡æ–°é€‰æ‹©\n";
 				}
 			}
 			if (flag)
@@ -35,7 +35,7 @@ void Main_menu()
 				q = q->next;
 			}
 			outfile.close();
-			cout << "×¢²á³É¹¦£¬ÇëµÈ´ý¹ÜÀíÔ±ÉóÅú\n°´ÈÎÒâ¼üÍË³ö³ÌÐò\n";
+			cout << "æ³¨å†ŒæˆåŠŸï¼Œè¯·ç­‰å¾…ç®¡ç†å‘˜å®¡æ‰¹\næŒ‰ä»»æ„é”®é€€å‡ºç¨‹åº\n";
 			system("pause");
 			break;
 		}
@@ -54,14 +54,17 @@ void Main_menu()
 					if (q->data.deleted == false && q->data.Passwd == user_msg.Passwd)
 					{
 						flag = true;
-						cout << "µÇÂ¼³É¹¦\n";
+						cout << "ç™»å½•æˆåŠŸ\n";
 						manage(q->data);
 					}
 				}
+				if (flag)
+					break;
+				q = q->next;
 			}
 			if (flag == false)
 			{
-				cout << "ÓÃ»§Ãû»òÃÜÂë´íÎó£¬ÇëÖØÐÂÊäÈë\n";
+				cout << "ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥\n";
 			}
 			else
 				break;
