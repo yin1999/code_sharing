@@ -18,12 +18,27 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="manage.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NODE.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="user.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="manage.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
