@@ -17,11 +17,17 @@ void Main_menu()
 			while (q)
 			{
 				if (strcmp(q->data.Username, user_msg.Username) != 0)
+				{
+					q = q->next;
 					continue;
+				}
 				else
 				{
 					flag = true;
-					cout << "用户名重复，请重新选择\n";
+					system("cls");
+					cout << "用户名重复，请重新输入\n";
+					cout << "注册账户:\n";
+					break;
 				}
 			}
 			if (flag)
