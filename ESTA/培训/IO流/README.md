@@ -7,7 +7,7 @@
   - [文件IO流](#文件io流)
     - [fopen&fclose](#fopenfclose)
   - [总结](#总结)
-
+- [指针](#../%E6%8C%87%E9%92%88/README.md)
 
 ## 控制台IO流
 
