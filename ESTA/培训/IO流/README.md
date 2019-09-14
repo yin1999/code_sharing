@@ -38,6 +38,7 @@
     int main() {
         int ch;
         while ((ch = getchar()) && ch != '\n') {
+            
             putchar(ch);
         }
         putchar('\n');
@@ -74,13 +75,17 @@ __文件输入流__:
     
         int c;
         while ((c = fgetc(fp)) != EOF) { // 标准C I/O读取文件循环
-        putchar(c);
+            putchar(c);
         }
     
-        if (ferror(fp))
+        if (ferror(fp)) {
+
             puts("I/O error when reading");
-        else if (feof(fp))
+
+        } else if (feof(fp)) {
+
             puts("End of file reached successfully");
+        }
     
         fclose(fp);
         return 0;
@@ -100,8 +105,9 @@ __文件输出流__:
             fputc(str[i], fp);
         }
 
-        if (ferror(fp))
+        if (ferror(fp)) {
             puts("I/O error when writing\n");
+        }
         fclose(fp);
         return 0;
     }
@@ -122,8 +128,9 @@ __文件输出流__:
             fputc(str[i], fp);
         }
 
-        if (ferror(fp))
+        if (ferror(fp)) {
             puts("I/O error when writing\n");
+        }
         fp = fopen("test.txt", "w");          //在未解除关联的情况下直接打开并写入一个字节，造成了错误
         fputc(0, fp);
         return 0;
