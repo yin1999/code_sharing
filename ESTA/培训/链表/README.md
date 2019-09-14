@@ -94,8 +94,7 @@ __链表__ 的最大作用就是，它能够存储无限的数据（只要硬件
             if (head == NULL) {
                 head = (Node*)malloc(sizeof(Node));
                 Pointer = head;
-            }
-            else {
+            } else {
                 Pointer->next = (Node*)malloc(sizeof(Node));
                 Pointer = Pointer->next;
             }
@@ -103,8 +102,7 @@ __链表__ 的最大作用就是，它能够存储无限的数据（只要硬件
             if (Pointer == NULL) {
                 printf("Error!\n");
                 break;
-            }
-            else {
+            } else {
                 Pointer->data = data;
                 Pointer->next = NULL;
             }
@@ -130,15 +128,13 @@ __链表__ 的最大作用就是，它能够存储无限的数据（只要硬件
                 if (Pointer->data != data) {
                     P_pre = Pointer;
                     Pointer = Pointer->next;
-                }
-                else if (Pointer != head) {
+                } else if (Pointer != head) {
                     P_pre->next = Pointer->next;
                     free(Pointer);
                     printf("Deleted the node.\n");
                     flag = 1;
                     break;
-                }
-                else {
+                } else {
                     head = Pointer->next;
                     free(Pointer);
                     printf("Deleted the node.\n");
@@ -146,8 +142,9 @@ __链表__ 的最大作用就是，它能够存储无限的数据（只要硬件
                     break;
                 }
             }
-            if (flag == 0)
+            if (flag == 0) {
                 printf("Haven't found the node.\n");
+            }
             flag = 0;
         }
         Node* P_next;
