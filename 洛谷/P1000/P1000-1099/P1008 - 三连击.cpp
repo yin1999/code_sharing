@@ -10,48 +10,44 @@
 #include <iostream>
 using namespace std;
 
-bool judge(int i)
-{
+bool judge(int i) {
 	bool num[10] = { false };
 	int temp = i, remain;
-	while (temp)
-	{
+	while (temp) {
 		remain = temp % 10;
-		if (remain == 0)
+		if (remain == 0) {
 			return false;
-		else
-			num[remain] = true;
+		}
+		num[remain] = true;       //else
 		temp /= 10;
 	}
 	temp = i * 2;
-	while (temp)
-	{
+	while (temp) {
 		remain = temp % 10;
-		if (remain == 0 || num[remain])
+		if (remain == 0 || num[remain]) {
 			return false;
-		else
-			num[remain] = true;
+		}
+		num[remain] = true;        //else
 		temp /= 10;
 	}
 	temp = i * 3;
-	while (temp)
-	{
+	while (temp) {
 		remain = temp % 10;
-		if (remain == 0 || num[remain])
+		if (remain == 0 || num[remain]) {
 			return false;
-		else
-			num[remain] = true;
+		}
+		num[remain] = true;     //else
 		temp /= 10;
 	}
 	return true;
 }
 
-int main()
-{
-	for (int i = 123; i < 333; i++)
-	{
-		if (judge(i))
+int main() {
+	for (int i = 123; i < 333; i++) {
+		if (judge(i)) {
+			
 			cout << i << ' ' << i * 2 << ' ' << i * 3 << endl;
+		}
 	}
 	return 0;
 }
