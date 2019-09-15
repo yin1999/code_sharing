@@ -1,8 +1,7 @@
 #include <iostream>
 using namespace std;
 
-int main()
-{
+int main() {
     int L, M, i;
     cin >> L >> M;
     
@@ -11,16 +10,17 @@ int main()
         a[i] = 1;
         
     int left, right;
-    while (M--)
-    {
+    while (M--) {
         cin >> left >> right;
-        for (i = left; i <= right; i++)
+        for (i = left; i <= right; i++) {
             a[i] = 0;
+        }
     }
     
     int sum = 0;
-    for (i = 0; i <= L; i++)   //求和，为1的就是那棵树还在
+    for (i = 0; i <= L; i++) {  //求和，为1的就是那棵树还在
         sum += a[i];
+    }
         
     delete[] a;
     
