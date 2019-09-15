@@ -18,10 +18,11 @@ int main() {
 	if (ans == int(str[12] - '0') || (ans == 10 && str[12] == 'X')) {
 		cout << "Right" << endl;
 	} else {
-		if (ans != 10)
+		if (ans != 10) {
 			str[12] = '0' + ans;
-		else
+		} else {
 			str[12] = 'X';
+		}
 		cout << str << endl;
 	}
 	return 0;
