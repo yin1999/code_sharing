@@ -3,14 +3,11 @@
 #include <iostream>
 using namespace std;
 
-int main()
-{
+int main() {
     int x, y, sum = 8, day = 0;
-    for (int i = 1; i <= 7; i++)
-    {
+    for (int i = 1; i <= 7; i++) {
         cin >> x >> y;
-        if (sum < x + y)
-        {
+        if (sum < x + y) {
             sum = x + y;
             day = i;
         }
