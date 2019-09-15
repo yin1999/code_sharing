@@ -1,8 +1,7 @@
 #include <iostream>
 using namespace std;
 
-int main()
-{
+int main() {
 	char str[15];
 	cin >> str;
 	int ans;
@@ -16,10 +15,9 @@ int main()
 	ans += int(str[9] - '0') * 8;
 	ans += int(str[10] - '0') * 9;
 	ans %= 11;
-	if (ans == int(str[12] - '0') || (ans == 10 && str[12] == 'X'))
+	if (ans == int(str[12] - '0') || (ans == 10 && str[12] == 'X')) {
 		cout << "Right" << endl;
-	else
-	{
+	} else {
 		if (ans != 10)
 			str[12] = '0' + ans;
 		else
