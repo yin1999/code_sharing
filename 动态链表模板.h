@@ -1,8 +1,7 @@
 #pragma once
 
 template <class Type>
-class node
-{
+class node {
 public:
 	Type data;
 	node* next;
@@ -12,11 +11,9 @@ public:
 };
 
 template <class Type>
-void node<Type>::Store(Type& temp)
-{
+void node<Type>::Store(Type& temp) {
 	node* p = this;
-	while (p->next)
-	{
+	while (p->next) {
 		p = p->next;
 	}
 	p->next = new node;
