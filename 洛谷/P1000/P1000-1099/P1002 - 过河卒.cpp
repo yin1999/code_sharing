@@ -4,8 +4,7 @@ using namespace std;
 long long int map[25][25];   //记录到某一点的所有可能性
 int g[25][25];  //记录马控制的点
 
-int main()
-{
+int main() {
 	int a, b, n, m;
 	cin >> a >> b >> n >> m;
 
@@ -19,27 +18,24 @@ int main()
 	g[n + 2][m + 1] = 1;
 	g[n + 1][m + 2] = 1;
 
-	for (int i = 0; i <= a; i++)
-	{
-		for (int j = 0; j <= b; j++)
-		{
-			if (g[i][j] == 1)
+	for (int i = 0; i <= a; i++) {
+		for (int j = 0; j <= b; j++) {
+			if (g[i][j] == 1) {
 				map[i][j] = 0;
-			else
-			{
-				if (i == 0 && j == 0)   //起点
-				{
+			} else {
+				if (i == 0 && j == 0) {   //起点
+					
 					map[i][j] = 1;
 					continue;
 				}
         
-				if (i == 0)                   //在左侧边界或者顶部边界
-				{
+				if (i == 0) {                  //在左侧边界或者顶部边界
+					
 					map[i][j] = map[i][j - 1];
 					continue;
 				}
-				if (j == 0)
-				{
+				if (j == 0) {
+					
 					map[i][j] = map[i - 1][j];
 					continue;
 				}
