@@ -56,7 +56,7 @@ int main()
         }
         radix *= 10; //位数进一
     }
-    for (i = 1; i < n; i++) //验证排序是否正确
+    for (i = 1; i < n; i++) //验证排序是否正确，可以改成输出整个数组
     {
         if (array[i] < array[i - 1])
         {
