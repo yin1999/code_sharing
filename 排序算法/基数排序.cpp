@@ -49,6 +49,7 @@ int main()
             {
                 k++;
                 index = 0;
+                continue;          //确保下一个桶不为空
             }
             array[j] = tmp[k][index];
             j++;
