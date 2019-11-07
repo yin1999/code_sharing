@@ -12,9 +12,16 @@
       - [例二值传递](#例二值传递)
       - [例二指针传递](#例二指针传递)
       - [例二总结](#例二总结)
+    - [总结1](#总结1)
+    - [二维数组的指针](#二维数组的指针)
+      - [Error code](#error-code)
+      - [Correct code](#correct-code)
+    - [函数指针](#函数指针)
+    - [例三](#例三)
+      - [例三总结](#例三总结)
+    - [例四](#例四)
+    - [例五](#例五)
   - [总结](#总结)
-- [链表](../链表/README.md)
-- [IO流](../IO流/README.md)
 
 ## 指针是什么
 
@@ -26,7 +33,8 @@ _图片来自[Wikipedia.org](https://zh.wikipedia.org/wiki/%E6%8C%87%E6%A8%99_(%
 
 ## 指针的优点
 
-指针相对于值传递的速度更快(占用储存空间较多的情况下)，值传递在C/C++中是将已有对象复制一份到一个新的内存空间中；而指针则是给出储存数据的位置和数据类型，对数据直接进行操作。
+指针相对于值传递的速度更快(占用储存空间较多的情况下)，值传递在C/C++中是将已有对象复制一份到一个新的内存空间中；而指针则是给出储存数据的位置和数据类型，对数据直接进行操作。  
+举一个生动形象的例子吧：我们是把一整幢房子搬过来，再把要给的东西投进房子里面方便，还是在知道房子地址的情况下，再让快递员把快递直接投递过去方便。
 
 ## coding环节
 
@@ -37,7 +45,6 @@ _图片来自[Wikipedia.org](https://zh.wikipedia.org/wiki/%E6%8C%87%E6%A8%99_(%
 #### 例一值传递
 
     #include <stdio.h>
-    #include <stdlib.h>
 
     void swap(int a, int b) {
         int c = a;
@@ -57,7 +64,6 @@ _图片来自[Wikipedia.org](https://zh.wikipedia.org/wiki/%E6%8C%87%E6%A8%99_(%
 #### 例一指针传递
 
     #include <stdio.h>
-    #include <stdlib.h>
 
     void swap(int* pa, int* pb) {
         int c = *pa;
@@ -100,13 +106,13 @@ _图片来自[Wikipedia.org](https://zh.wikipedia.org/wiki/%E6%8C%87%E6%A8%99_(%
     } comp;
 
     int main() {
-        comp a, b = { 0 };
+        comp a, b = {};
         getchar();               //排除编译过程对运行时间产生的影响
         clock_t start = clock();
         int i = 0;
         for (; i < 1000000; i++) {
-            a = b;
             b.a = i;
+            a = b;
         }
         clock_t end = clock();
         printf("Used time=%dms\n", end - start);
@@ -131,13 +137,13 @@ _图片来自[Wikipedia.org](https://zh.wikipedia.org/wiki/%E6%8C%87%E6%A8%99_(%
     } comp;
 
     int main() {
-        comp *a, b = { 0 };
+        comp *a, b = {};
         getchar();               //排除编译过程对运行时间产生的影响
         clock_t start = clock();
         int i = 0;
         for (; i < 1000000; i++) {
-            a = &b;
             b.a = i;
+            a = &b;
         }
         clock_t end = clock();
         printf("Used time=%dms\n", end - start);
@@ -148,6 +154,213 @@ _图片来自[Wikipedia.org](https://zh.wikipedia.org/wiki/%E6%8C%87%E6%A8%99_(%
 
 在变量占用空间较多的情况下，采用指针传值会比普通的值传递快很多
 
-### 总结
+### 总结1
+
+上面的两个例子说明了在一些情况下，使用指针赋值来代替传统的赋值操作会让程序运行得更快
+而且我们对指针的调用也能够实现对两个变量的值进行交换，或是读取相应变量的值。  
+
+而这时有人或许会对指针为什么还要有不同的类型有所疑问。下面就让我们尝试着运行一下下面
+的这串代码。
+
+    #include <stdio.h>
+
+    int main() {
+        int array1[10];
+        char array2[10];
+        printf("数组元素中，第0个元素的地址 %d\n", &array1[0]);
+        printf("整型数组的首地址是 %d\n数组中第一个元素的地址是 %d\n", array1, &array1[1]);
+        //使用指针加1的效果:
+        printf("int型指针加1： %d\n", array1 + 1);
+        printf("字符数组的首地址是 %d\n数组中第一个元素的地址是 %d\n", array2, &array2[1]);
+        //使用指针加1的效果:
+        printf("char型指针加1：%d\n", array2 + 1);
+        return 0;
+    }
+
+C\C++使用指针的类型来确定一次指针变量 **+1** 需要在内存空间向后移动多少个字节，同时
+指针的类型也使得程序能够正确地完成**指针-->值**的转换(这里的"值"指的是指针指向的内存
+空间中储存的值)。
+
+其次，上面的程序也证明了数组的首地址与数组名中储存的地址相同！  
+
+下图是一个字符数组在内存空间内的存储结构图，对于字符数组，其指针每加“1”在内存空间内就是将指向的地址向后移动了一个字节(8位)的长度。
+
+![image](./image/ArrayofChar.png "字符数组")
+
+下图是一个整型数组在内存空间内的储存结构图，对于整型数组，其指针每加“1”在内存空间内就是将指向的地址向后移动了四个字节(32位)的长度。
+
+![image](./image/ArrayofInt.png "整型数组")
+
+### 二维数组的指针
+
+运行一下试试
+
+    #include <stdio.h>
+
+    int main() {
+        int array[3][10];
+        printf("二维数组首地址 %d\n", array);
+        printf("第一行一维数组首地址 %d\n", *array);
+        printf("二维数组第二行地址 %d\n", array + 1);
+        printf("第二行一维数组首地址 %d\n", *(array + 1));
+        return 0;
+    }
+
+是不是觉得二维数组的指针还是挺好理解的  
+那下面来看看提高部分吧
+
+#### Error code
+
+    #include <stdio.h>
+
+    int main() {
+        int array[3][10] = {};
+        int **p = array;
+        printf("第1行第0列的值 %d\n", **(p1+1));
+        return 0;
+    }
+
+好吧，这样居然就报错！我强制转换总行了吧！
+
+    #include <stdio.h>
+
+    int main() {
+        int array[3][10] = {};
+        int **p = (void**)array;
+        return 0;
+    }
+
+还错，那怎样才正确嘛！
+
+#### Correct code
+
+    #include <stdio.h>
+
+    int main() {
+        int array[10][10] = {};
+        int(*p1)[10] = array;
+        printf("第1行第0列的值 %d\n", **(p1+1));
+        return 0;
+    }
+
+#### 二维数组指针总结
+
+二维数组指针和二级指针的差异来自于内存中储存数组方式的不同
+理想的情况下，二维数组储存的方式如下图所示
+
+![image](./image/理想的数组储存.png "理想的二维数组储存方式")
+
+而在计算机的内存中，考虑到内存空间的总量有限，二维数组是以下图的形式储存的  
+也就是说，在C\C++中，二维数组是一个伪二维数组，它本质上就是一个一维数组
+
+![image](./image/实际的数组储存.png "实际的二维数组储存方式")
+
+### 函数指针
+
+函数指针，函数指针，看名字就能看出来，它是一个指向函数的指针。定义方法为:  
+\<Typename1\> (*funcPointer)(\<Typename2\>, ...)  
+*Typename1* 为函数返回值类型  
+*Typename2...* 为函数的形参表  
+
+下面提供一个使用函数指针的例子
+
+### 例三
+
+    #include <stdio.h>
+
+    int func1(int a) {
+        return a / 2;
+    }
+
+    int func2(int a) {
+        return a * 2;
+    }
+
+    int main() {
+        int (*funcPointer)(int);     //定义函数指针
+        funcPointer = func1;
+        printf("func1: %d\n", funcPointer(10));   //函数指针的调用
+        funcPointer = func2;
+        printf("func1: %d\n", funcPointer(10));   //函数指针的调用
+        return 0;
+    }
+
+#### 例三总结
+
+函数指针是一个非常非常有用的工具，下面我们就举一个例子。
+
+### 例四
+
+在下面的这个例子中，我们将使用函数指针来指定数组的排序方法(升序 or 降序)
+
+    //请如果现在打开的是C语言的项目，请先新建一个C++的项目
+    #include <iostream>
+    #include <algorithm>
+    using namespace std;
+
+    int array[1000];
+
+    bool cmp(int front, int behind) {  //比较函数(现在是升序)
+        return front < behind;
+    }
+
+    int main() {
+        int n;
+        //*****输入数组 Start******
+        cin >> n;
+        int i = 0;
+        for (; i < n; i++) {
+            cin >> array[i];
+        }
+        //****输入数组 End*********
+        sort(array, array+n, cmp);  //传入比较函数，告诉sort这个数组从小到大排
+        
+        for (i = 1; i < n; i++) {   //测试数组排序是否正确
+            if (array[i] < array[i - 1]) {
+                cout << "Error!\n";
+                return -1;
+            }
+        }
+        return 0;
+    }
+
+### 例五
+
+使用qsort对结构体进行排序  
+成员访问运算符 ".", "->"
+
+    #include <stdlib.h>
+    #include <stdio.h>
+
+    typedef struct {
+        int a;
+        int b;
+        int c;
+    } mix;
+
+    mix array[1000];
+
+    int cmp(const void *front, const void *behind) {
+        return  ((mix *)front)->a - ((mix *)behind)->a;
+    }
+
+    int main() {
+        int n;
+        scanf("%d", &n);
+        int i = 0;
+        for (; i < n; i++) {
+            scanf("%d%d%d", &array[i].a, &array[i].b, &array[i].c);
+        }
+        qsort(array, n, sizeof(mix), cmp);
+        for (i = 1; i < n; i++) {
+            if (array[i].a < array[i-1].a) {
+                printf("Error!\n");
+                return -1;
+            }
+        }
+        return 0;
+    }
+
+## 总结
 
 指针作为一种高效的传递参数的变量类型，正确地使用可以加快程序运行速度。在C/C++中也有许多用到了指针的地方。例如:qsort,sort函数 cout操作符等。
