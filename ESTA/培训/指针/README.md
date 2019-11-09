@@ -78,8 +78,8 @@ _图片来自[Wikipedia.org](https://zh.wikipedia.org/wiki/%E6%8C%87%E6%A8%99_(%
     &(*b) == b;   //先间接访问a，再取出其地址, true
     *(&a) == a;   //先取a的地址，在通过指针间接访问a, true
 
-"&\*"连用表示什么都没干  
-"\*&"连用也表示什么都没干
+"&\*(接地址)"连用表示什么都没干  
+"\*&(接变量名)"连用也表示什么都没干
 
 [回到目录](#指针)
 
@@ -428,11 +428,13 @@ C\C++使用指针的类型来确定一次指针变量 **+1** 需要在内存空�
         return 0;
     }
 
-    //*******万能数组元素交换器************
+    /*******万能数组元素交换器************
+    * 传入参数ptr(任意类型指针)，size指针对应的变量所占用的字节数(可使用sizeof(类型名))
+    */
     void swp(void* ptr, unsigned size) {
         char a;
         unsigned i;
-        char* first, * second;
+        char *first, *second;
         first = (char *)ptr;
         second = first + size;
         for (i = 0; i < size; i++) {
