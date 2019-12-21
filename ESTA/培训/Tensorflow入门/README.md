@@ -103,7 +103,7 @@ keras是一个用Python编写的高阶神经网络API，我们可以像搭乐高
     import pickle
     import numpy as np
 
-接着，我们将文本数据读入后存入列表，在读入列表的同时，我们将其标签存入标签列表，标签有两个，一个是positive，一个是negative，对于文本分类的应用，使用one-hot设置标签较为合适。文本数据下载：[negative.txt](./Source/negative.txt)、[positive.txt](./Source/positive.txt)
+接着，我们将文本数据读入后存入列表，在读入列表的同时，我们将其标签存入标签列表，标签有两个，一个是positive，一个是negative，对于文本分类的应用，使用one-hot设置标签较为合适。文本数据下载（右键链接，选择另存为）：[negative.txt](./Source/negative.txt)、[positive.txt](./Source/positive.txt)
 
 | 数据标签 |one-hot编码|
 | ------ | ------ |
