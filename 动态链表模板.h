@@ -75,15 +75,13 @@ bool node<Type>::Del(const node* const ptr) {
         delete del_node;
         return true;
     }
-    else {
-        return false;
-    }
+    return false;
 }
 
 template <class Type>
 node<Type>* node<Type>::Find(const Type& data) {
     node* p = this;
-    while (p->next) {
+    while (p != 0) {
         if (p->data == data) {
             return p;
         }
