@@ -36,7 +36,7 @@ bool cmp(int a, int b) {
 }
 
 int main() {
-	node<int> head;  //创建链表对象 head.next即为链表的首个节点
+	node<int> head;  //创建链表对象 head.next即为链表的首个节点，要获取地址请使用head.Next()
 	int a = 1;
 	head.Store(a);
 	a = 3;
