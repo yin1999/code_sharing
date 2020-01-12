@@ -8,7 +8,7 @@
 //   程序将在结束运行时自动清空，不需要自行清空。
 //6. 优化各项体验，将单项链表修改为双向链表，同时增加了抛出异常的机制，方便排查常规的指针引用异常
 //7. 将类改为两个，修改了之前的使用递归调用析构函数的方法来清空链表的策略，当前版本理论上可以无限制地增加长度
-//由于鄙人才疏学浅，目前仍存在一些小问题，暂时没有很好的改进方法，下面通过ToDoList的形式列出存在的问题
+//   由于鄙人才疏学浅，目前仍存在一些小问题，暂时没有很好的改进方法，下面通过ToDoList的形式列出存在的问题
 //ToDoList:
 //1. 暂时无法避免恶意的指针使用，对于正常状态的使用，当前的类封装能避免绝大部分"非恶意"的指针操作，能够满足绝大部分人的需求
 
@@ -19,11 +19,11 @@
 #include <utility>
 
 #ifndef NULL
-	#ifdef __cplusplus
-		#define NULL 0
-	#else
-		#define NULL ((void *)0)
-	#endif
+#ifdef __cplusplus
+#define NULL 0
+#else
+#define NULL ((void *)0)
+#endif
 #endif // !NULL
 
 /*
@@ -113,7 +113,7 @@ public:
 	 * 当链表节点创建成功时，返回true，否则返回false
 	 */
 	bool Store(Type&& __x);
-	bool Store(const Type& __x);
+	bool Store(Type& __x);
 	/**
 	 * 函数名：Remove
 	 * 功能：删除相应节点
@@ -189,7 +189,7 @@ Node<Type>::~Node() {
 
 template <class Type>
 bool Node<Type>::Store(Type&& __x) {
-	node<Type>* p = std::move(new node<Type>(__x));
+	node<Type>* p = std::move(new node<Type>(std::move(__x)));
 	if (p != NULL) {
 		if (last == NULL) {
 			next = std::move(p);
@@ -206,8 +206,8 @@ bool Node<Type>::Store(Type&& __x) {
 }
 
 template <class Type>
-bool Node<Type>::Store(const Type& __x) {
-	node<Type>* p = std::move(new node<Type>(__x));
+bool Node<Type>::Store(Type& __x) {
+	node<Type>* p = std::move(new node<Type>(std::move(__x)));
 	if (p != NULL) {
 		if (last == NULL) {
 			next = std::move(p);
