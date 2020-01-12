@@ -107,20 +107,71 @@ private:
 public:
 	Node();
 	~Node();
+	/**
+	 * 函数名：Store
+	 * 传入参数：储存的元素
+	 * 当链表节点创建成功时，返回true，否则返回false
+	 */
 	bool Store(Type&& __x);
 	bool Store(const Type& __x);
+	/**
+	 * 函数名：Remove
+	 * 功能：删除相应节点
+	 * 传入参数：节点指针
+	 * 返回值：删除成功时返回ture，否则返回false
+	 */
 	bool Remove(node<Type>*&& __ptr);
 	bool Remove(node<Type>*& __ptr);
+	/**
+	 * 函数名：Find
+	 * 传入参数：寻找的数据、比较函数（比较特定数据是否相同）
+	 * 返回值：寻找到相应数据，返回节点地址，否则返回NULL
+	 */
 	template <class V>
 	node<Type>* Find(V&& __value, bool __CMP(Type __classObj, V __data));
 	template <class V>
 	node<Type>* Find(V& __value, bool __CMP(Type __classObj, V __data));
+	/**
+	 * 函数名：Get
+	 * 传入参数：节点地址
+	 * 返回值：传入指针指向对象可读可写的引用
+	 */
 	Type& Get(node<Type>*&& __ptr);
 	Type& Get(node<Type>*& __ptr);
+	/**
+	 * 函数名：HasNext
+	 * 功能：判断是否有下一个对象(即是否到了链表末尾)
+	 * 传入参数：无
+	 * 返回值：若存在下一个对象：返回true，否则返回false
+	 */
 	bool HasNext();
+	/**
+	 * 函数名：Next
+	 * 功能：迭代器，获取下一个元素
+	 * 传入参数：无
+	 * 返回值：链表中下一个对象可读可写的引用
+	 */
 	Type& Next();
+	/**
+	 * 函数名：Clear
+	 * 功能：清空链表
+	 * 传入参数：无
+	 * 返回值：无
+	 */
 	void Clear();
+	/**
+	 * 函数名：Empty
+	 * 功能：判断链表是否为空
+	 * 传入参数：无
+	 * 返回值：bool 若为空，返回true,否则返回false
+	 */
 	bool Empty();
+	/**
+	 * 函数名：ResetIterator
+	 * 功能：清空链表
+	 * 传入参数：无
+	 * 返回值：无
+	 */
 	bool ResetIterator();
 };
 
