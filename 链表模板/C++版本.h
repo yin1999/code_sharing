@@ -19,11 +19,11 @@
 #include <utility>
 
 #ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
+	#ifdef __cplusplus
+		#define NULL 0
+	#else
+		#define NULL ((void *)0)
+	#endif
 #endif // !NULL
 
 /*
@@ -31,11 +31,9 @@
 #include "node.h"
 #include <iostream>
 using namespace std;
-
 bool cmp(int a, int b) {
 	return a == b;
 }
-
 int main() {
 	Node<int> head;  //创建链表对象 head.next即为链表的首个节点，注意，是大写的N
 	int a = 1;
@@ -279,7 +277,7 @@ Type& Node<Type>::Next() {
 
 template <class Type>
 void Node<Type>::Clear() {
-	node<Type>* p(std::move(next)), *q;
+	node<Type>* p(std::move(next)), * q;
 	while (p != NULL) {
 		q = std::move(p->next);
 		delete p;
