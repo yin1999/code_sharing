@@ -40,6 +40,7 @@ func main() {
 		}
 		wg.Done()
 	}()
+	// 如果想要尝试，请注释下面这个函数
 	go func() {
 		http.Handle("/img/", http.StripPrefix("/img/", http.FileServer(http.Dir("./web/img"))))
 		// http.HandleFunc("/goto/", shortURL)
@@ -73,6 +74,7 @@ func main() {
 }
 
 func (t *serveMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	// 如果想要尝试，请注释第一个if，把后面的else if改为if
 	if r.URL.Scheme == "http" {
 		redirectHTTP(w, r)
 	} else if r.URL.Path == "/" {
