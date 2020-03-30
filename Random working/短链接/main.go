@@ -49,7 +49,7 @@ func main() {
 	}()
 	// 如果想要尝试，请注释下面这个函数
 	go func() {
-		http.Handle("/img/", http.StripPrefix("/img/", http.FileServer(http.Dir("./web/img"))))
+		// http.Handle("/img/", http.StripPrefix("/img/", http.FileServer(http.Dir("./web/img"))))
 		// http.HandleFunc("/goto/", shortURL)
 		// http.HandleFunc("/add/", addURL)
 		// http.HandleFunc("/", rootHandler)
@@ -90,6 +90,9 @@ func (t *serveMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		shortURL(w, r)
 	} else if len(r.URL.Path) > 4 && r.URL.Path[1:4] == "add" {
 		addURL(w, r)
+	} else if strings.HasPrefix(r.URL.Path, "/img/") {
+		had := http.StripPrefix("/img/", http.FileServer(http.Dir("./web/img")))
+		had.ServeHTTP(w, r)
 	} else {
 		notFound(w, r)
 	}
