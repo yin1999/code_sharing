@@ -27,7 +27,7 @@ public:
 };
 
 int main() {
-    srand(time(NULL));
+    srand(time(NULL));  // 设置随机数种子，使用rand函数来模拟真随机数
     uint8_t key[5*1024];    //定义一个1个区块数量为5，密钥长度为1024
     int k = 3;
     // device端
