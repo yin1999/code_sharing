@@ -5,6 +5,7 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
+	"net/url"
 	"sync"
 	"text/template"
 	"time"
@@ -29,6 +30,12 @@ func main() {
 	mux := serveMux{}
 	keyValue = make(map[string]timeURL)
 	urlExist = make(map[string]string)
+	tmpStruct := timeURL{}
+	tmpStruct.Time = time.Now().Unix()
+	tmpStruct.URL = "https://gitee.com/allo123/code_sharing/tree/master/培训/物联网设备认证/示例.cpp"
+	keyValue["u4dyrg"] = tmpStruct
+	tmpStruct.URL = "https://gitee.com/allo123/code_sharing/tree/master/Random working/短链接"
+	keyValue["njhpqd"] = tmpStruct
 	rand.Seed(time.Now().Unix())
 	d := time.Duration(time.Hour * 6)
 	t := time.NewTicker(d)
@@ -75,13 +82,13 @@ func main() {
 
 func (t *serveMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// 如果想要尝试，请注释第一个if，把后面的else if改为if
-	if r.URL.Scheme == "http" {
+	if r.TLS == nil {
 		redirectHTTP(w, r)
 	} else if r.URL.Path == "/" {
 		rootHandler(w, r)
-	} else if r.URL.Path[1:5] == "goto" {
+	} else if len(r.URL.Path) > 5 && r.URL.Path[1:5] == "goto" {
 		shortURL(w, r)
-	} else if r.URL.Path[1:4] == "add" {
+	} else if len(r.URL.Path) > 4 && r.URL.Path[1:4] == "add" {
 		addURL(w, r)
 	} else {
 		notFound(w, r)
@@ -117,16 +124,25 @@ func shortURL(w http.ResponseWriter, r *http.Request) {
 }
 
 func addURL(w http.ResponseWriter, r *http.Request) {
-	url := r.URL.Path[5:]
-	for i, v := range url {
-		if v == '/' {
-			url = url[:i] + "/" + url[i:]
-			break
-		}
+	URL := r.URL.Path[5:]
+	if URL == "" {
+		fmt.Fprintln(w, "输入的URL格式错误\n请按如下格式输入: https://hhuiot.xyz/add/Your_URL\n使用你想缩短的URL来代替'Your_URL'")
+		return
+	}
+	u, err := url.Parse(URL)
+	if err != nil {
+		log.Println(err)
+		fmt.Fprintln(w, "服务器资源访问错误")
+		return
+	}
+	if u.Scheme == "" {
+		URL = "http://" + u.String()
+	} else {
+		URL = u.String()
 	}
 	var newURL string
 	var ok bool
-	if newURL, ok = urlExist[url]; !ok {
+	if newURL, ok = urlExist[URL]; !ok {
 		newURL = randStringBytesRmndr()
 		_, ok := keyValue[newURL]
 		i := 0
@@ -140,9 +156,9 @@ func addURL(w http.ResponseWriter, r *http.Request) {
 		}
 		keyValue[newURL] = timeURL{
 			Time: time.Now().Unix(),
-			URL:  url,
+			URL:  URL,
 		}
-		urlExist[url] = newURL
+		urlExist[URL] = newURL
 	} else {
 		tmp := keyValue[newURL]
 		tmp.Time = time.Now().Unix()
@@ -155,7 +171,7 @@ func addURL(w http.ResponseWriter, r *http.Request) {
 	} else {
 		t.Execute(w, newURL)
 	}
-	fmt.Printf("addURL:%s -> %s\n", newURL, url)
+	fmt.Printf("addURL:%s -> %s\n", newURL, URL)
 }
 
 func randStringBytesRmndr() string {
