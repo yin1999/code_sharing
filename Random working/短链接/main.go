@@ -40,20 +40,20 @@ func main() {
 	d := time.Duration(time.Hour * 6)
 	t := time.NewTicker(d)
 	go func() {
-		http.HandleFunc("/", redirectHTTP)
 		err := http.ListenAndServe(":80", &mux)
 		if err != nil {
 			log.Println(err)
 		}
 		wg.Done()
 	}()
-	// 如果想要尝试，请注释下面这个函数
 	go func() {
-		// http.Handle("/img/", http.StripPrefix("/img/", http.FileServer(http.Dir("./web/img"))))
-		// http.HandleFunc("/goto/", shortURL)
-		// http.HandleFunc("/add/", addURL)
-		// http.HandleFunc("/", rootHandler)
-		err := http.ListenAndServeTLS(":443", "./3358091_hhuiot.xyz.pem", "./3358091_hhuiot.xyz.key", &mux)
+		http.Handle("/img/", http.StripPrefix("/img/", http.FileServer(http.Dir("./web/img"))))
+		http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./web/css"))))
+		http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("./web/js"))))
+		http.HandleFunc("/goto/", shortURL)
+		http.HandleFunc("/add/", addURL)
+		http.HandleFunc("/", rootHandler)
+		err := http.ListenAndServeTLS(":443", "./3358091_hhuiot.xyz.pem", "./3358091_hhuiot.xyz.key", nil)
 		if err != nil {
 			log.Println(err)
 		}
@@ -81,24 +81,14 @@ func main() {
 }
 
 func (t *serveMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	// 如果想要尝试，请注释第一个if，把后面的else if改为if
-	if r.TLS == nil {
-		redirectHTTP(w, r)
-	} else if r.URL.Path == "/" {
-		rootHandler(w, r)
-	} else if len(r.URL.Path) > 5 && r.URL.Path[1:5] == "goto" {
-		shortURL(w, r)
-	} else if len(r.URL.Path) > 4 && r.URL.Path[1:4] == "add" {
-		addURL(w, r)
-	} else if strings.HasPrefix(r.URL.Path, "/img/") {
-		had := http.StripPrefix("/img/", http.FileServer(http.Dir("./web/img")))
-		had.ServeHTTP(w, r)
-	} else {
-		notFound(w, r)
-	}
+	redirectHTTP(w, r)
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		notFound(w, r)
+		return
+	}
 	t, err := template.ParseFiles("./web/html/index.html")
 	if err != nil {
 		log.Println(err)
@@ -129,19 +119,44 @@ func shortURL(w http.ResponseWriter, r *http.Request) {
 func addURL(w http.ResponseWriter, r *http.Request) {
 	URL := r.URL.Path[5:]
 	if URL == "" {
-		fmt.Fprintln(w, "输入的URL格式错误\n请按如下格式输入: https://hhuiot.xyz/add/Your_URL\n使用你想缩短的URL来代替'Your_URL'")
-		return
-	}
-	u, err := url.Parse(URL)
-	if err != nil {
-		log.Println(err)
-		fmt.Fprintln(w, "服务器资源访问错误")
-		return
-	}
-	if u.Scheme == "" {
-		URL = "http://" + u.String()
+		if r.Method == "GET" {
+			//fmt.Println("get")
+			t, err := template.ParseFiles("./web/html/shortURL.html")
+			if err != nil {
+				log.Println(err)
+				fmt.Fprintln(w, "服务器资源访问错误")
+			} else {
+				err = t.Execute(w, nil)
+				if err != nil {
+					log.Println(err)
+				}
+			}
+			return
+		}
+		//fmt.Println("post")
+		err := r.ParseForm()
+		if err != nil {
+			log.Println(err)
+			return
+		}
+		if r.FormValue("mod") == "0" {
+			URL = r.FormValue("url")
+		} else {
+			// 还原短链接
+		}
+
 	} else {
-		URL = u.String()
+		u, err := url.Parse(URL)
+		if err != nil {
+			log.Println(err)
+			fmt.Fprintln(w, "服务器资源访问错误")
+			return
+		}
+		if u.Scheme == "" {
+			URL = "http://" + u.String()
+		} else {
+			URL = u.String()
+		}
 	}
 	var newURL string
 	var ok bool

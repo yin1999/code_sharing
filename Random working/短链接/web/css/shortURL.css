@@ -1,0 +1,182 @@
+*{
+    margin:0;
+    padding: 0;
+}
+
+li{
+    list-style: none;
+}
+
+body{
+    background-color:#f3f5f7;
+}
+
+.w{
+    width:1200px;
+    margin:auto;
+}
+
+.header{
+    width:1200px;
+    height:80px;
+    margin:auto;
+    margin:30px auto;
+}
+
+.logo{
+    float:left;
+    margin-right:180px;
+    margin-left: 200px;
+}
+
+.nav {
+    float:left;
+}
+
+.nav ul li{
+    float:left;
+    margin-right:200px;
+}
+
+.nav ul li a{
+    display: block;
+    height:60px;
+    line-height: 80px;
+    padding:0 10px;
+    color:#050505;
+    text-decoration: none;
+    font-size:32px;    
+}
+
+.nav ul li a:hover{
+    border-bottom: 2px solid #00a4ff;
+}
+
+.bg{
+    background:url(/img/bk.jpg);
+    height:700px;
+}
+
+.bg-blur{
+    float: left;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    -webkit-filter: blur(8px);
+    -moz-filter: blur(8px);
+    -o-filter: blur(8px);
+    -ms-filter: blur(8px);
+    filter: blur(8px);
+}
+
+.banner{
+    width:1200px;
+    padding:40px;
+    height:500px;
+    position: absolute;
+    top:50%;    
+    left:50%;
+    transform: translate(-50%,-50%);
+    background-color: none;
+}
+
+.banner h1{
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.nav2{
+    margin-left:170px;
+}
+
+.nav2 ul li
+{
+    display: block;
+    float:left;
+    width:120px;
+    height:50px;
+    margin-left:5px;
+    margin-top:35px;
+    text-align: center;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.nav2 ul li:hover{
+    background-color: grey;
+}
+
+.nav2 ul li a{
+    display: block;
+    height:60px;
+    padding:0 10px;
+    color:#050505;
+    text-decoration: none;
+    font-size:20px;    
+}
+
+.form input[type="text"]{
+    background: none;
+    display: block;
+    margin:180px 0px 0px -350px;
+    text-align: center;
+    border:2px solid black;
+    padding:18px 10px;
+    width:750px;
+    outline:none;
+    color:black;
+    transition: 0.25s;
+    height:16px;
+    font-weight: 300;
+}
+
+.form input[type="text"]:focus{
+    border-color: cornflowerblue;
+    width:750px;
+}
+
+.form input[type="submit"]
+{
+    background-color: cornflowerblue;
+    display: block;
+    float:left;
+    margin-top:180px;
+    border:0;
+    background: none;
+    border:2px solid cornflowerblue;
+    padding:10px;
+    width:100px;
+    color:bisque;
+    outline:none;
+    transition: 0.25s;
+    cursor:pointer;
+    height:56px;
+}
+
+input::-webkit-input-placeholder {
+    color: black;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.error {
+    width:400px;
+    height:35px;
+    margin-left:450px;
+    margin-top:100px;
+    display:block;
+    color:black;
+    font-weight: 500;
+    text-shadow: 4px 4px 4px rgb(133, 119, 119);
+    font-size: 25px;
+}
+
+.span{
+    position: absolute;
+    margin-top: 740px;
+    margin-left: 400px;
+    font-size: 24px;
+    font-weight: 500;
+}

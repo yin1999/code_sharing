@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>短链接服务</title>
+    <link rel="shortcut icon" href="/img/favicon.png" />
+    <link rel="bookmark" href="/img/favicon.png" />
+    <link rel="stylesheet" href="/css/shortURL.css">
+    
+    <script type="text/javascript" src="/js/shortURL.js" ></script>
+</head>
+<body>
+    <div class="header w">
+        <div class="logo">
+            <img src="/img/logo2.png" alt="">
+        </div>
+        <div class="nav">
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li><a href="#"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="bg bg-blur"></div>
+   
+    <div class="banner">
+        <h1>USE ME !</h1>
+        <div class="nav2">
+            <ul>
+                <li id="short">
+                    <a href="#">
+                        缩短网址
+                    </a>
+                </li>
+                <li id="long">
+                    <a href="#">
+                        还原网址
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <form class="form" id="form" method="POST">
+            <table>
+                <input type="hidden" id="mod" name="mod" value="0">
+                <tr></tr>
+                <td>
+                    <input type="text" id="url" name="url" style="color: black; font-size: 20px; font-weight: 600;" placeholder="请输入长网址">
+                </td>
+                <td>
+                    <input type="submit" id="name" value="缩短网址">                    
+                </td>
+            </table>
+        </form>
+
+        <div>
+            <span id="error1"></span>
+        </div>
+    </div>
+
+    <div class="footer">
+    </div>
+</body>
+</html>

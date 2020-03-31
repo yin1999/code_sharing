@@ -6,13 +6,15 @@
     <link rel="bookmark" href="/img/favicon.png" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="/js/addShortURL.js"></script>
     <title>Document</title>
 </head>
 <body>
     <p style="font-size: large;">
         生成短链接成功，短链接地址为:
         <br>
-        <code>https://hhuiot.xyz/goto/{{.}}</code>
+        <input id='url' style="width: auto;" readonly="readonly" value='https://hhuiot.xyz/goto/{{.}}'></input>
+        <button type="button" id="copyURL">Copy</button>
         <br>
     </p>
     <p>
