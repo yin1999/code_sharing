@@ -16,7 +16,7 @@ key_down = 0xD0
 key_return = 0x1C
 key_tab = 0x0F
 
-pause_time = 0.1
+pause_time = 0.07
 
 SendInput = ctypes.windll.user32.SendInput
 
@@ -71,7 +71,6 @@ def keyinput(out):
     now = [0,0]
     for i in out:
         next_ = posi[i]
-        print(next_, now)
         if next_[0] != now[0]:
             PressKey(key_right)
             time.sleep(pause_time)
@@ -168,3 +167,4 @@ while True:
         time.sleep(2)
 
 sys.exit(app.exec_())
+
