@@ -118,7 +118,7 @@ if (img.height(),img.width()) == screen_size[1]:
     template_finger = ('gta/finger2_1.jpg', 'gta/finger2_2.jpg', 'gta/finger2_3.jpg', 'gta/finger2_4.jpg')
     l = [(634, 363), (634, 554), (634, 747), (634, 939), (827, 939), (827, 747), (827, 554), (827, 363)]
     screen_sel = 1
-    finger_sel = (205,880, 1280,1760)
+    finger_sel = (205,880, 1300,1760)
     size = 154
 elif (img.height(),img.width()) == screen_size[0]:
     template_finger = ('gta/finger1_1.jpg', 'gta/finger1_2.jpg', 'gta/finger1_3.jpg', 'gta/finger1_4.jpg')
@@ -139,7 +139,7 @@ for i in range(1,5):
         part.append(cv2.imread('gta/%d_%d_%d.jpg'%(screen_sel+1,i,j), cv2.IMREAD_GRAYSCALE))
     sel.append(part)
 
-print("ready.")
+print("screen size: %dX%d\nready."%screen_size[screen_sel])
 while True:
     img = screen.grabWindow(hwnd).toImage()
     s = img.bits().asstring(img.width()*img.height()*img.depth() // 8)
@@ -148,10 +148,10 @@ while True:
 
     if img.shape != screen_size[screen_sel]:
         print("请将gta的窗口调整为%dX%d"%screen_size[screen_sel])
+        print("调整分辨率后回车继续")
         input()
 
     finger = img[finger_sel[0]:finger_sel[1], finger_sel[2]:finger_sel[3]]
-
     confi = []
     for im in template:
         res = cv2.matchTemplate(finger,im, cv2.TM_CCOEFF_NORMED)
@@ -160,7 +160,7 @@ while True:
 
     i = 4
     maxValue = np.max(confi)
-    if maxValue >= 0.9:
+    if maxValue >= 0.8:
         i = np.where(confi==maxValue)[0][0]
 
     if i != 4:
