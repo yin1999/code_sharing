@@ -106,19 +106,37 @@ hwnd = win32gui.FindWindow(None, 'Grand Theft Auto V')
 app = QApplication(sys.argv)
 screen = QApplication.primaryScreen()
 
-template_finger = ('gta/finger_1.jpg', 'gta/finger_2.jpg', 'gta/finger_3.jpg', 'gta/finger_4.jpg')
+screen_size = [(1080, 1920), (1440, 2560)]
 template = []
+template_finger = ()
+l = []
+screen_sel = 1
+finger_sel = ()
+
+img = screen.grabWindow(hwnd).toImage()
+if (img.height(),img.width()) == screen_size[1]:
+    template_finger = ('gta/finger2_1.jpg', 'gta/finger2_2.jpg', 'gta/finger2_3.jpg', 'gta/finger2_4.jpg')
+    l = [(634, 363), (634, 554), (634, 747), (634, 939), (827, 939), (827, 747), (827, 554), (827, 363)]
+    screen_sel = 1
+    finger_sel = (205,880, 1280,1760)
+    size = 154
+elif (img.height(),img.width()) == screen_size[0]:
+    template_finger = ('gta/finger1_1.jpg', 'gta/finger1_2.jpg', 'gta/finger1_3.jpg', 'gta/finger1_4.jpg')
+    l = [(476, 272), (476, 415), (476, 560), (476, 704), (620, 704), (620, 560), (620, 415), (620, 272)]
+    screen_sel = 0
+    finger_sel = (155,684, 960,1343)
+    size = 116
+
+
 for f in template_finger:
     im = cv2.imread(f, cv2.IMREAD_GRAYSCALE)
     template.append(im)
-
-l = [(476, 272), (476, 415), (476, 560), (476, 704), (620, 704), (620, 560), (620, 415), (620, 272)]
 
 sel = []
 for i in range(1,5):
     part = []
     for j in range(1,5):
-        part.append(cv2.imread('gta/%d_%d.jpg'%(i,j), cv2.IMREAD_GRAYSCALE))
+        part.append(cv2.imread('gta/%d_%d_%d.jpg'%(screen_sel+1,i,j), cv2.IMREAD_GRAYSCALE))
     sel.append(part)
 
 print("ready.")
@@ -128,11 +146,11 @@ while True:
     img = np.frombuffer(s, dtype=np.uint8).reshape((img.height(), img.width(), img.depth()//8))
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    if img.shape != (1080, 1920):
-        print("请将gta的窗口调整为1920x1080")
+    if img.shape != screen_size[screen_sel]:
+        print("请将gta的窗口调整为%dX%d"%screen_size[screen_sel])
         input()
 
-    finger = img[155:684,960:1343]
+    finger = img[finger_sel[0]:finger_sel[1], finger_sel[2]:finger_sel[3]]
 
     confi = []
     for im in template:
@@ -167,4 +185,3 @@ while True:
         time.sleep(2)
 
 sys.exit(app.exec_())
-
