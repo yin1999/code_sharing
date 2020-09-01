@@ -108,48 +108,61 @@ screen = QApplication.primaryScreen()
 
 screen_size = [(1080, 1920), (1440, 2560)]
 template = []
+sel = []
 template_finger = ()
 l = []
-screen_sel = 1
+screen_sel = -1
 finger_sel = ()
 
-img = screen.grabWindow(hwnd).toImage()
-if (img.height(),img.width()) == screen_size[1]:
+print("请勿使用全屏模式，保持此程序在后台运行.")
+
+x1,y1,x2,y2 = win32gui.GetWindowRect(hwnd)
+currentScreenSize = (y2-y1,x2-x1)
+if currentScreenSize == screen_size[1]:
     template_finger = ('gta/finger2_1.jpg', 'gta/finger2_2.jpg', 'gta/finger2_3.jpg', 'gta/finger2_4.jpg')
     l = [(634, 363), (634, 554), (634, 747), (634, 939), (827, 939), (827, 747), (827, 554), (827, 363)]
     screen_sel = 1
     finger_sel = (205,880, 1300,1760)
     size = 154
-elif (img.height(),img.width()) == screen_size[0]:
+elif currentScreenSize == screen_size[0]:
     template_finger = ('gta/finger1_1.jpg', 'gta/finger1_2.jpg', 'gta/finger1_3.jpg', 'gta/finger1_4.jpg')
     l = [(476, 272), (476, 415), (476, 560), (476, 704), (620, 704), (620, 560), (620, 415), (620, 272)]
     screen_sel = 0
     finger_sel = (155,684, 960,1343)
     size = 116
 
+if screen_sel != -1:
+    for f in template_finger:
+        im = cv2.imread(f, cv2.IMREAD_GRAYSCALE)
+        template.append(im)
+    
+    for i in range(1,5):
+        part = []
+        for j in range(1,5):
+            part.append(cv2.imread('gta/%d_%d_%d.jpg'%(screen_sel+1,i,j), cv2.IMREAD_GRAYSCALE))
+        sel.append(part)
+    
+    print("screen size: %dX%d\nready."%currentScreenSize)
+else:
+    print('尚未适配当前分辨率: %dX%d.'%currentScreenSize)
 
-for f in template_finger:
-    im = cv2.imread(f, cv2.IMREAD_GRAYSCALE)
-    template.append(im)
-
-sel = []
-for i in range(1,5):
-    part = []
-    for j in range(1,5):
-        part.append(cv2.imread('gta/%d_%d_%d.jpg'%(screen_sel+1,i,j), cv2.IMREAD_GRAYSCALE))
-    sel.append(part)
-
-print("screen size: %dX%d\nready."%screen_size[screen_sel])
-while True:
+while screen_sel != -1:
     img = screen.grabWindow(hwnd).toImage()
     s = img.bits().asstring(img.width()*img.height()*img.depth() // 8)
     img = np.frombuffer(s, dtype=np.uint8).reshape((img.height(), img.width(), img.depth()//8))
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
+    if hwnd != win32gui.GetForegroundWindow():
+        print('等待窗口还原(当前为最小化状态)')
+        while hwnd != win32gui.GetForegroundWindow():
+            time.sleep(0.5)
+        continue
+
     if img.shape != screen_size[screen_sel]:
-        print("请将gta的窗口调整为%dX%d"%screen_size[screen_sel])
+        print("请将gta的窗口调整为: %dX%d"%screen_size[screen_sel])
         print("调整分辨率后回车继续")
         input()
+        continue
 
     finger = img[finger_sel[0]:finger_sel[1], finger_sel[2]:finger_sel[3]]
     confi = []
